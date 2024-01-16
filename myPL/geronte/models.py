@@ -17,10 +17,10 @@ class Doctor(models.Model):
     patients = models.ManyToManyField(Patient)
 
 class SideEffectsRisks(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
     category = models.CharField(
         max_length=200,
         choices=CATEGORY_SIDE_EFFECTS
     )
+    description = models.TextField()
+    
     

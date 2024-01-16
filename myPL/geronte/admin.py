@@ -8,7 +8,7 @@ class PatientAdmin(admin.ModelAdmin):
 
 
 class SideEffectsRisksAdmin(admin.ModelAdmin):
-    list_display = ("title", "description", "category")
+    list_display = ("category", "description")
 
 
 admin.site.register(Patient, PatientAdmin)

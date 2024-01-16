@@ -1,1 +1,10 @@
-side effect partial
+<div>
+    <form action="{% url 'save_new_side_effect' %}" method="post">
+        {% csrf_token %}
+        {{form.category}}
+        <div class="top_row">
+        {{category}}<button type="submit">Save</button>
+        </div>
+        {{form.description}}
+    </form>
+</div>

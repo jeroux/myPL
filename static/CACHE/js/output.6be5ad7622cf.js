@@ -1,0 +1,1 @@
+<script>var open_panel=document.getElementById("open_new_side_effects_pannel");var panel=document.getElementById("add_new_side_effects");open_panel.addEventListener('click',function(){panel.style.display="block";});</script>;

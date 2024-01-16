@@ -1,5 +1,5 @@
 # myPL
-Use case on project Geronte
+Use case on project Geronte for myPL
 
 ## Installation
 Go in the project folder and create a virtual environment
@@ -7,10 +7,21 @@ Go in the project folder and create a virtual environment
 python -m venv venv
 ```
 
+install TailwindCSS and Flowbite
+```bash
+npm install tailwindcss
+npm install flowbite
+```
+
+Create a postgresql database for the project
+
 Create .env file and add the following variables:
 
 ```text
 SECRET_KEY=your_secret_key
+DB_NAME=dbname
+DB_USER=dbuser
+DB_PASSWORD=dbpassword
 ```
 
 Install dependencies
@@ -31,7 +42,6 @@ age: 45
 ```
 
 You can go to the dashboard with the following url:
-```text
-http://127.0.0.1:8000/
-```
+[http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
 

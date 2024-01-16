@@ -15,14 +15,16 @@
         {% block css %}
         {% endblock %}
 
+        <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
         {% block js %}
         {% endblock %}
     </head>
     <body>
         {% block main_part %}
         {% endblock %}
-</body>
-
-{% block js_bottom %}
-{% endblock %}
+        
+        {% block js_bottom %}
+        {% endblock %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    </body>
 </html>

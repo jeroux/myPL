@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    font-family: 'Inter', sans-serif;
+    background-color: #EFF2F5;
+}
+
+#add_new_side_effects{
+    display: none;
+}

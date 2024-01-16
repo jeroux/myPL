@@ -1,4 +1,5 @@
 {% extends "main.html" %}
+{% load compress %}
 {% load static %}
 
 {% block title %}
@@ -6,34 +7,41 @@
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/dashboard_tail.css' %}">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    {% endcompress %}
 {% endblock %}
 
 
 {% block main_part %}
         <h1>Medication, allergies and substance use</h1>
-        <button type="button" class="btn btn-primary">Add</button>
-        <div>
+        <button type="button" onclick="openPanel()">Add<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 16">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5m0 6 4 4 4-4"/>
+          </svg></button>
+        <div id="add_new_side_effects">
             <form action="" method="post">
                 {% csrf_token %}
                 {% for category in side_effects_categories%}
                 <div>
-                    <input type="radio" id={{category.0}} name="category" value={{category.0}}/>
-                    <label for="{{category.0}}">{{category.1}}</label>
+                    <input type="radio" id={{category.1}} name="category" value={{category.1}}>
+                    <label for="{{category.1}}">{{category.1}}</label>
                 </div>
                 {% endfor %}
                 <div class="button_row">
                     <button type="button" class="cancel_button">Cancel</button>
-                    <button type="button" class="submit_button">Add</button>
+                    <button type="button" class="submit_button"
+                        hx-post="{% url 'add_side_effects' %}"
+                        hx-swap="innerHTML"
+                        hx-target="#new_item"
+                    >
+                    Add
+                    </button>
                 </div>
             </form>
         </div>
 
         
-        <div class="new_item">
-            <button type="button">Save</button>
-             <input type="text" name="title" placeholder="Title">
-            <input type="text" name="description" placeholder="Description">
+        <div id="new_item">
         </div>
 
         {% for item in object_list %}
@@ -45,3 +53,11 @@
         {% endfor %}
 
 {% endblock %}
+
+{% block js %}
+    {% comment %} {% compress js %}
+        <script src="{% static 'js/dashboard.js' %}"></script>
+    {% endcompress %} {% endcomment %}
+    <script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
+```
