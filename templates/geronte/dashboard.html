@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}
+<title>Dashboard</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard_tail.css' %}">
+{% endblock %}
+
+
+{% block main_part %}
+        <h1>Medication, allergies and substance use</h1>
+        <button type="button" class="btn btn-primary">Add</button>
+        <div>
+            <form action="" method="post">
+                {% csrf_token %}
+                {% for category in side_effects_categories%}
+                <div>
+                    <input type="radio" id={{category.0}} name="category" value={{category.0}}/>
+                    <label for="{{category.0}}">{{category.1}}</label>
+                </div>
+                {% endfor %}
+                <div class="button_row">
+                    <button type="button" class="cancel_button">Cancel</button>
+                    <button type="button" class="submit_button">Add</button>
+                </div>
+            </form>
+        </div>
+
+        
+        <div class="new_item">
+            <button type="button">Save</button>
+             <input type="text" name="title" placeholder="Title">
+            <input type="text" name="description" placeholder="Description">
+        </div>
+
+        {% for item in object_list %}
+        <div>
+            {{ item.category}} <button type="button">Edit</button>
+            <hr>
+            {{ item.title }} - {{ item.description }}
+        </div>
+        {% endfor %}
+
+{% endblock %}
