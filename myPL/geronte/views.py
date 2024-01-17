@@ -1,7 +1,8 @@
 from typing import Any
 
+from django.shortcuts import redirect
 from django.views.generic import FormView
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
 
 from .models import Patient, SideEffectsRisks, CATEGORY_SIDE_EFFECTS
 from .forms import SideEffectsForm
@@ -27,9 +28,16 @@ class DashboardView(FormView):
         context["side_effects_categories"] = CATEGORY_SIDE_EFFECTS
         return context
 
-class DeleteSideEffectView(DeleteView):
-    model = SideEffectsRisks
-    success_url = "/"
+def deleteSideEffect(request, pk):
+    SideEffectsRisks.objects.filter(pk=pk).delete()
+    return redirect("/")
+
+def updateSideEffect(request):
+    print (request.POST)
+    if request.method == "POST":
+        pk = request.POST.get("update")
+        SideEffectsRisks.objects.filter(pk=pk).update(description=request.POST.get("description"))
+    return redirect("/")
 
     
 

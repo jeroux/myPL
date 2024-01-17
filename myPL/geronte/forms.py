@@ -9,6 +9,6 @@ class SideEffectsForm(forms.ModelForm):
         fields = ("category", "description")
 
         widgets = {
-            "category": forms.HiddenInput(attrs={"class": "form-control"}),
-            "description": forms.Textarea(attrs={"class": "form-control"}),
+            "category": forms.HiddenInput(),
+            "description": forms.TextInput(attrs={"class": "w-full bg-section new-item-input"}),
         }

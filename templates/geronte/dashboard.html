@@ -29,7 +29,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <div class="button_row flex flex-row justify-end">
+            <div class="button_row flex flex-row justify-end ">
                 <button type="button" class="text-cancel cancel_button px-2" onclick=close_pannel()>Cancel</button>
                 <button type="button" class="text-save submit_button px-2" onclick=init_new_item() id="add_button">
                 Add
@@ -42,16 +42,17 @@
             <form action="" method="post">
                 {% csrf_token %}
                 {{form.category}}
-                <div class="top_row">
-                    <span id="new_item_category_label"></span>
+                <div class="flex flex-row flex-nowrap justify-between content-center items-center">
+                    <h2 id="new_item_category_label"></h2>
                     <div class="editing_buttons">
-                        <button type="button" class="text-delete">Delete</button>
-                        <button type="button" class="text-cancel_label">Cancel</button>
-                        <button type="button" class="text-save">Save</button>
+                        <button type="button" class="text-delete" onclick=hide_new_item() >Delete</button>
+                        <button type="button" class="text-cancel_label" onclick=hide_new_item()>Cancel</button>
+                        <button type="submit" class="text-save">Save</button>
                     </div>
                 </div>
-                <div class="row">
-                    {{form.description}}
+                <hr>
+                <div class="row  flex flex-row flex-nowrap content-center items-center">
+                    <div class="text-cancel_label columns-2">Description</div><div class="w-full">{{form.description}}</div>
                 </div>
                 
             </form>
@@ -59,14 +60,25 @@
 
         {% for item in object_list %}
         <div class="section">
-            <div class="row  flex flex-row flex-nowrap justify-between">
-                <h2>{{ item.category}}</h2> 
-                <button type="button" class="edit_btn">Edit</button>
-            </div>
-            <hr>
-            <div class="row  flex flex-row flex-nowrap">
-                <div class="text-cancel_label columns-2">Description</div><div class="w-full"><input type='text' class="w-full bg-section border-none" value={{ item.description }} disabled readonly></div>
-            </div>
+            <form action={% url "update_side_effect" %} method="post">
+                {% csrf_token %}
+                <input type="hidden" name="update" value={{item.id}}>
+                <div class="flex flex-row flex-nowrap justify-between">
+                    <h2>{{ item.category}}</h2>
+                    <div id="reading_buttons_{{item.id}}">
+                        <button type="button" class="text-edit" onclick=editing_mode({{item.id}})>Edit</button>
+                    </div>
+                    <div id="editing_buttons_{{item.id}}" class="hidden">
+                        <a href={%url "delete_side_effect" item.id%}><button type="button" class="text-delete">Delete</button></a>
+                        <button type="button" class="text-cancel_label" onclick=reading_mode({{item.id}})>Cancel</button>
+                        <button type="submit" class="text-save">Save</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="row  flex flex-row flex-nowrap">
+                    <div class="text-cancel_label columns-2">Description</div><div class="w-full"><input type='text' id="input_{{item.id}}" name="description" class="w-full bg-section border-none" value={{ item.description }} disabled></div>
+                </div>
+            </form>
         </div>
         {% endfor %}
     </div>
