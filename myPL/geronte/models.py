@@ -2,8 +2,8 @@ from django.db import models
 
 CATEGORY_SIDE_EFFECTS = (
     ('Allergy', 'Allergy'),
-    ('Medication', 'Medication on admission'),
-    ('Substance_use', 'Substance use'),
+    ('Medication on admission', 'Medication on admission'),
+    ('Substance use', 'Substance use'),
 )
 
 class Patient(models.Model):

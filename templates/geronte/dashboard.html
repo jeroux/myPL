@@ -14,28 +14,27 @@
 
 
 {% block main_part %}
-    <div class="container">
+    <div class="container mx-auto my-2">
         <header><h1 class="flex-shrink-0 z-10 inline-flex items-center text-center">Medication, allergies and substance use</h1>
-        <button id="dropdown" data-dropdown-toggle="add_new_side_effects" class="flex-shrink-0 z-10 inline-flex items-center text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
-            Add<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 16">
+        <button id="dropdown" data-dropdown-toggle="add_new_side_effects" class="flex-shrink-0 p-1 z-10 inline-flex items-center text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
+            Add<svg class="w-6 h-6 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-3 -6 20 32">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5m0 6 4 4 4-4"/>
           </svg></button>
-        <div id="add_new_side_effects" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700" aria-labelledby="dropdown">
-            <form action="" method="post">
-                {% csrf_token %}
+        <div id="add_new_side_effects" class="z-10 hidden p-1 bg-white divide-y divide-gray-100 rounded-lg shadow w-fit dark:bg-gray-700" aria-labelledby="dropdown">
+            <div class="m-2">
                 {% for category in side_effects_categories%}
-                <div>
-                    <input type="radio" id={{category.1}} name="category" value={{category.1}}>
-                    <label for="{{category.1}}">{{category.1}}</label>
+                <div class="flex flew-row flex-nowrap content-center justify-start items-center text-sm">
+                    <input type="radio" id={{category.1}} name="category" value={{category.1}} class="mx-2">
+                    <label for={{category.1}} class="mx-3 text-nowrap">{{category.1}}</label>
                 </div>
                 {% endfor %}
-                <div class="button_row">
-                    <button type="button" class="cancel_button">Cancel</button>
-                    <button type="button" class="submit_button" onclick=init_new_item()>
-                    Add
-                    </button>
-                </div>
-            </form>
+            </div>
+            <div class="button_row flex flex-row justify-end">
+                <button type="button" class="text-cancel cancel_button px-2" onclick=close_pannel()>Cancel</button>
+                <button type="button" class="text-save submit_button px-2" onclick=init_new_item() id="add_button">
+                Add
+                </button>
+            </div>
         </div>
         </header>
         
@@ -44,7 +43,12 @@
                 {% csrf_token %}
                 {{form.category}}
                 <div class="top_row">
-                    <span id="new_item_category_label"></span><button type="submit">Save</button>
+                    <span id="new_item_category_label"></span>
+                    <div class="editing_buttons">
+                        <button type="button" class="text-delete">Delete</button>
+                        <button type="button" class="text-cancel_label">Cancel</button>
+                        <button type="button" class="text-save">Save</button>
+                    </div>
                 </div>
                 <div class="row">
                     {{form.description}}
@@ -53,16 +57,15 @@
             </form>
         </div>
 
-
         {% for item in object_list %}
         <div class="section">
-            <div class="row flew">
+            <div class="row  flex flex-row flex-nowrap justify-between">
                 <h2>{{ item.category}}</h2> 
                 <button type="button" class="edit_btn">Edit</button>
             </div>
             <hr>
-            <div class="row">
-                <span class="label">{{ item.title }}</span> - {{ item.description }}
+            <div class="row  flex flex-row flex-nowrap">
+                <div class="text-cancel_label columns-2">Description</div><div class="w-full"><input type='text' class="w-full bg-section border-none" value={{ item.description }} disabled readonly></div>
             </div>
         </div>
         {% endfor %}

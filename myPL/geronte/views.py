@@ -1,9 +1,7 @@
 from typing import Any
 
-from django.shortcuts import render, redirect
 from django.views.generic import FormView
 from django.views.generic.edit import DeleteView
-from django.http import HttpResponse
 
 from .models import Patient, SideEffectsRisks, CATEGORY_SIDE_EFFECTS
 from .forms import SideEffectsForm
@@ -13,7 +11,7 @@ class DashboardView(FormView):
     form_class = SideEffectsForm
     success_url = "/"
 
-    def form_valid(self, form: SideEffectsForm) -> HttpResponse:
+    def form_valid(self, form: SideEffectsForm):
         patient = Patient.objects.first()
         SideEffectsRisks.objects.create(
             patient=patient,
@@ -22,10 +20,10 @@ class DashboardView(FormView):
         )
         return super(DashboardView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+    def get_context_data(self, **kwargs: Any):
         context = super(DashboardView, self).get_context_data(**kwargs)
         patient = Patient.objects.first()
-        context["object_list"] = SideEffectsRisks.objects.filter(patient=patient)
+        context["object_list"] = SideEffectsRisks.objects.filter(patient=patient).order_by("-id")
         context["side_effects_categories"] = CATEGORY_SIDE_EFFECTS
         return context
 
