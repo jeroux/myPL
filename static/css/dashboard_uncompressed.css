@@ -4,9 +4,44 @@
 
 body{
     font-family: 'Inter', sans-serif;
+    font-weight: 400;
     background-color: #EFF2F5;
 }
 
-#add_new_side_effects{
-    display: none;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
+
+.container {
+    width: 520px;
+    margin: 0 auto;
+}
+
+.section {
+    padding: 12px;
+    background-color: #F5F7F9;
+    border-radius: 8px;
+    margin-top: 12px;
+}
+
+.section .label {
+    width: 200px;
+    padding: 8px 6px;
+}
+
+.delete_btn {
+    color: #AB001D;
+}
+
+.save_btn {
+    color: #004BE0;
+}
+
+.cancel_btn, .edit_btn, .label {
+    color: #5D626F;
+}
+
+.bold{
+font-weight: 600;
 }

@@ -4,6 +4,5 @@ from . import views
 
 urlpatterns = [
     path("", views.DashboardView.as_view(), name="dashboard"),
-    path("add_side_effects", views.AddSideEffectsView.as_view(), name="add_side_effects"),
-    path("save_new_side_effect", views.saveNewSideEffectView, name="save_new_side_effect")
+    path("delete_side_effect/<int:pk>/", views.DeleteSideEffectView.as_view(), name="delete_side_effect"),
 ]

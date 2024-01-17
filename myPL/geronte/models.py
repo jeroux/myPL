@@ -9,7 +9,6 @@ CATEGORY_SIDE_EFFECTS = (
 class Patient(models.Model):
     name = models.CharField(max_length=200)
     age = models.IntegerField(null=True, blank=True)
-    drugs_allergies = models.ForeignKey(to='SideEffectsRisks', on_delete=models.CASCADE, null=True, blank=True)
 
 class Doctor(models.Model):
     name = models.CharField(max_length=200)
@@ -22,5 +21,6 @@ class SideEffectsRisks(models.Model):
         choices=CATEGORY_SIDE_EFFECTS
     )
     description = models.TextField()
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     
     

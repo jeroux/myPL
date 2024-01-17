@@ -4,11 +4,11 @@ from .models import Patient, SideEffectsRisks
 
 
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ("name", "age", "drugs_allergies")
+    list_display = ("name", "age")
 
 
 class SideEffectsRisksAdmin(admin.ModelAdmin):
-    list_display = ("category", "description")
+    list_display = ("patient", "category", "description")
 
 
 admin.site.register(Patient, PatientAdmin)

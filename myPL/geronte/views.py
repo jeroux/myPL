@@ -1,48 +1,37 @@
 from typing import Any
 
 from django.shortcuts import render, redirect
-from django.views import View
-from django.views.generic import ListView, FormView
+from django.views.generic import FormView
+from django.views.generic.edit import DeleteView
 from django.http import HttpResponse
 
-from .models import SideEffectsRisks, CATEGORY_SIDE_EFFECTS
+from .models import Patient, SideEffectsRisks, CATEGORY_SIDE_EFFECTS
 from .forms import SideEffectsForm
 
-class DashboardView(ListView):
+class DashboardView(FormView):
     template_name = "geronte/dashboard.html"
-    model = SideEffectsRisks
-    paginate_by = 100
+    form_class = SideEffectsForm
+    success_url = "/"
+
+    def form_valid(self, form: SideEffectsForm) -> HttpResponse:
+        patient = Patient.objects.first()
+        SideEffectsRisks.objects.create(
+            patient=patient,
+            category=form.cleaned_data["category"],
+            description=form.cleaned_data["description"],
+        )
+        return super(DashboardView, self).form_valid(form)
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        patient = Patient.objects.first()
+        context["object_list"] = SideEffectsRisks.objects.filter(patient=patient)
         context["side_effects_categories"] = CATEGORY_SIDE_EFFECTS
         return context
 
-class AddSideEffectsView(View):
-    """
-        View that return a form in a partial.
-        Called by HTMX
-    """
-    def post(self, request: Any) -> Any:
-        categories = [category[1] for category in CATEGORY_SIDE_EFFECTS]
-        if request.POST.get("category") not in  categories:
-           return HttpResponse('')
-        
-        form = SideEffectsForm(request.POST)
-        return render(request, "geronte/partials/side_effects_partial.html", {"category": request.POST.get("category"), "form": form})
-    
-def saveNewSideEffectView(request):
-    if request.method == "POST":
-        form = SideEffectsForm(request.POST)
-        
-        if not form.is_valid():
-            return HttpResponse('')
-        
-        description = request.POST.get("description")
-        category = request.POST.get("category")
-        SideEffectsRisks.objects.create(description=description, category=category)
-        return redirect("dashboard")
-    return HttpResponse('')
+class DeleteSideEffectView(DeleteView):
+    model = SideEffectsRisks
+    success_url = "/"
 
     
 
