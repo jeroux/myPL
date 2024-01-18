@@ -12,3 +12,4 @@ class SideEffectsForm(forms.ModelForm):
             "category": forms.HiddenInput(),
             "description": forms.TextInput(attrs={"class": "w-full bg-section new-item-input"}),
         }
+        

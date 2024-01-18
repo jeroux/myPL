@@ -10,11 +10,6 @@ class Patient(models.Model):
     name = models.CharField(max_length=200)
     age = models.IntegerField(null=True, blank=True)
 
-class Doctor(models.Model):
-    name = models.CharField(max_length=200)
-    specialty = models.CharField(max_length=200)
-    patients = models.ManyToManyField(Patient)
-
 class SideEffectsRisks(models.Model):
     category = models.CharField(
         max_length=200,

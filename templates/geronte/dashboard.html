@@ -37,6 +37,7 @@
             </div>
         </div>
         </header>
+        {{form.errors}}
         
         <div id="new_item" class="section hidden">
             <form action="" method="post">
@@ -66,7 +67,7 @@
                 <div class="flex flex-row flex-nowrap justify-between">
                     <h2>{{ item.category}}</h2>
                     <div id="reading_buttons_{{item.id}}">
-                        <button type="button" class="text-edit" onclick=editing_mode({{item.id}})>Edit</button>
+                        <button type="button" class="text-cancel_label" onclick=editing_mode({{item.id}})>Edit</button>
                     </div>
                     <div id="editing_buttons_{{item.id}}" class="hidden">
                         <a href={%url "delete_side_effect" item.id%}><button type="button" class="text-delete">Delete</button></a>
