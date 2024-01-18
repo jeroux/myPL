@@ -1,5 +1,6 @@
 function init_new_item(){
     const category = document.querySelector('input[name="category"]:checked').value;
+    console.log(category);
 
     if(category != undefined){
         var category_input = document.getElementById('id_category');
@@ -14,7 +15,7 @@ function init_new_item(){
         var add_pannel = document.getElementById('add_new_side_effects');
         add_pannel.classList.add('hidden');
 
-        var new_item_input = document.getElementByClass('id_new_item');
+        var new_item_input = document.getElementsByClassName('id_new_item')[0];
         new_item_input.focus();
     }
 }
@@ -25,6 +26,9 @@ function close_pannel(){
 }
 
 function hide_new_item(){
+    var description_input = document.getElementById('id_description');
+    description_input.value = '';
+
     var new_item_div = document.getElementById('new_item');
     new_item_div.classList.add('hidden');
 }

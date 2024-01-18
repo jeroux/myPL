@@ -13,9 +13,14 @@ npm install tailwindcss
 npm install flowbite
 ```
 
+Go to myPL/myPL folder
+```bash
+cd PATH_TO_YOUR_FOLDER/myPL/myPL
+```
+
 Create a postgresql database for the project
 
-Create .env file and add the following variables:
+Create .env file in the folder myPL/myPL, where the settings.py file is, and add the following variables:
 
 ```text
 SECRET_KEY=your_secret_key
@@ -31,7 +36,7 @@ pip install -r requirements.txt
 
 ## Run
 ```bash
-python mange.py migrate
+python manage.py migrate
 python manage.py runserver
 ```
 

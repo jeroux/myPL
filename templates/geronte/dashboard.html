@@ -24,8 +24,8 @@
             <div class="m-2">
                 {% for category in side_effects_categories%}
                 <div class="flex flew-row flex-nowrap content-center justify-start items-center text-sm">
-                    <input type="radio" id={{category.1}} name="category" value={{category.1}} class="mx-2">
-                    <label for={{category.1}} class="mx-3 text-nowrap">{{category.1}}</label>
+                    <input type="radio" id="{{category.0}}" name="category" value="{{category.0}}" class="mx-2">
+                    <label for="{{category.0}}" class="mx-3 text-nowrap">{{category.1}}</label>
                 </div>
                 {% endfor %}
             </div>

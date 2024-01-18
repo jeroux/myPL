@@ -22,6 +22,7 @@ class DashboardView(FormView):
         return super(DashboardView, self).form_valid(form)
 
     def get_context_data(self, **kwargs: Any):
+        print(self.request.POST)
         context = super(DashboardView, self).get_context_data(**kwargs)
         patient = Patient.objects.first()
         context["object_list"] = SideEffectsRisks.objects.filter(patient=patient).order_by("-id")
